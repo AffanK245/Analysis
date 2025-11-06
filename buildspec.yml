@@ -7,7 +7,14 @@ phases:
     commands:
       - echo Installing dependencies...
       - pip install yfinance pandas matplotlib
+
   build:
     commands:
       - echo Running stock analysis script...
       - python stock_analysis.py
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: .
+  discard-paths: yes
