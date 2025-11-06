@@ -2,6 +2,7 @@ import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
+import sys
 
 def analyze_stock(symbol="AAPL"):
     print(f"Fetching stock data for {symbol}...")
@@ -10,7 +11,7 @@ def analyze_stock(symbol="AAPL"):
 
     if data.empty:
         print("No data found for the symbol.")
-        return
+        sys.exit(2)
 
     # Calculate technical indicators
     data["Daily Change %"] = data["Close"].pct_change() * 100
@@ -39,13 +40,18 @@ def analyze_stock(symbol="AAPL"):
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+
+    # Save chart to file instead of showing it
+    chart_file = f"{symbol}_chart_{datetime.now().strftime('%Y%m%d_%H%M%S')}.png"
+    plt.savefig(chart_file)
+    print(f"Chart saved to: {chart_file}")
 
     # Save analysis results to CSV
     output_file = f"{symbol}_analysis_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv"
     data.to_csv(output_file)
-    print(f"\nAnalysis saved to: {output_file}")
+    print(f"Analysis saved to: {output_file}")
 
 if __name__ == "__main__":
-    stock_symbol = input("Enter stock symbol (default AAPL): ") or "AAPL"
-    analyze_stock(stock_symbol)
+    # Use default symbol or override via command-line argument
+    symbol = sys.argv[1] if len(sys.argv) > 1 else "AAPL"
+    analyze_stock(symbol)
