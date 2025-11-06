@@ -24,10 +24,12 @@ def analyze_stock(symbol="AAPL"):
     print(f"Symbol: {symbol}")
     print(f"Start Date: {data.index.min().date()}")
     print(f"End Date: {data.index.max().date()}")
-    print(f"Average Close Price: {data['Close'].mean():.2f}")
-    print(f"Highest Close Price: {data['Close'].max():.2f}")
-    print(f"Lowest Close Price: {data['Close'].min():.2f}")
-    print(f"Average Volatility (10-day): {data['Volatility'].mean():.2f}%")
+    print(f"Average Close Price: {float(data['Close'].mean()):.2f}")
+
+    print(f"Highest Close Price: {float(data['Close'].max()):.2f}")
+    print(f"Lowest Close Price: {float(data['Close'].min()):.2f}")
+    print(f"Average Volatility (10-day): {float(data['Volatility'].mean()):.2f}%")
+
 
     # Plot close price and moving averages
     plt.figure(figsize=(10, 6))
