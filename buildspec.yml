@@ -18,3 +18,4 @@ artifacts:
     - '**/*'
   base-directory: .
   discard-paths: yes
+  name: stock-analysis-output.zip  # This is the valid S3 key (artifact name)
